@@ -1,0 +1,15 @@
+==8057== Memcheck, a memory error detector
+==8057== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==8057== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==8057== Command: ./minitar -c -f test.tar gatsby.txt
+==8057== Parent PID: 8013
+==8057== 
+==8057== 
+==8057== HEAP SUMMARY:
+==8057==     in use at exit: 0 bytes in 0 blocks
+==8057==   total heap usage: 29 allocs, 29 frees, 329,409 bytes allocated
+==8057== 
+==8057== All heap blocks were freed -- no leaks are possible
+==8057== 
+==8057== For lists of detected and suppressed errors, rerun with: -s
+==8057== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
