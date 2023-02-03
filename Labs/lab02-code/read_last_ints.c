@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
+
 /*
  * Read the last integers from a binary file
  *   'num_ints': The number of integers to read
@@ -10,6 +10,7 @@
 
 int read_last_ints(const char *file_name, int num_ints) {
     // TODO Not yet implemented
+    char err_msg[255];
     FILE * fr = fopen(file_name, "r");
 
     if (fr == NULL) {
@@ -17,21 +18,22 @@ int read_last_ints(const char *file_name, int num_ints) {
         return 1;
     }
 
-    // int size = file_size(file_name);
-    int * nums_read = malloc(sizeof(int) * (num_ints));
-    memset(nums_read, 0,num_ints );
-
+    int * num = malloc(sizeof(int));
     int nbytes;
-    // int move = (sizeof(int) * (num_ints) * -1);
+    int move = (sizeof(int) * num_ints * -1);
 
-    // fseek(fr, move, SEEK_END);
-    int i = 0;
-    while ((nbytes = fread(nums_read, 1, num_ints, fr)) > 0) {
-            // fwrite(nums_read, sizeof(int), 1, stdout);
-            printf("%d", nums_read[i++]);
+    if (fseek(fr, move, SEEK_END) == -1) {
+        snprintf(err_msg, 255, "Failed to fseek() in file %s", file_name);
+        perror(err_msg);
+        fclose(fr);
+        return -1;
     }
 
-    free(nums_read);
+    while ((nbytes = fread(num, sizeof(int), 1, fr)) > 0) {
+            printf("%d\n", *num);
+    }
+
+    free(num);
 
     if (fclose(fr) != 0) {
         printf("Failed to close file\n");
